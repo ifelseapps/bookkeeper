@@ -1,15 +1,26 @@
 version: '3.9'
 services:
   db:
-    image: postgres
+    image: postgres:15.1-alpine
     restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: "bookkeeper"
-      POSTGRES_USER: "pg"
-      POSTGRES_PASSWORD: "1234567"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     ports:
       - "5432:5432"
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d
       - ./db/data:/var/lib/postgresql/data
+  api:
+    depends_on:
+      - db
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    volumes:
+      - ./api:/usr/src/app
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
