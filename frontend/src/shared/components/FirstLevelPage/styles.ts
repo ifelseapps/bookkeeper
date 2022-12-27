@@ -8,10 +8,11 @@ export const Page = styled.div`
 `;
 
 export const Header = styled.header`
-  background: ${({ theme }) => theme.colors.commonAreaBackground};
+  padding: 1em 0;
 `;
 
 export const Footer = styled.footer`
+  padding: 1em 0;
   margin-top: auto;
   background: ${({ theme }) => theme.colors.commonAreaBackground};
 `;

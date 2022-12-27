@@ -1,11 +1,20 @@
 import React, { PropsWithChildren } from 'react';
+import { Link } from 'react-router-dom';
+import { Logo } from 'shared/components/Logo/Logo';
 import * as Styles from './styles';
 
 export function FirstLevelPage({ children }: PropsWithChildren) {
   return (
     <Styles.Page>
       <Styles.Header>
-        <Styles.Container>Счетовод</Styles.Container>
+        <Styles.Container>
+          <Logo />
+          <ul>
+            <li>
+              <Link to="/settings/accounts">План счетов</Link>
+            </li>
+          </ul>
+        </Styles.Container>
       </Styles.Header>
       <Styles.Container>{children}</Styles.Container>
       <Styles.Footer>

@@ -6,6 +6,7 @@ import 'app/common.css';
 import reportWebVitals from './reportWebVitals';
 import { routes } from 'app/routes';
 import { theme } from 'app/theme';
+import { IconContext } from 'react-icons';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,9 @@ const router = createBrowserRouter(routes);
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
+      <IconContext.Provider value={{}}>
+        <RouterProvider router={router} />
+      </IconContext.Provider>
     </ThemeProvider>
   </React.StrictMode>
 );
