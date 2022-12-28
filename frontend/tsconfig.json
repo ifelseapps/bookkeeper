@@ -23,6 +23,7 @@
   },
   "include": [
     "src",
-    "styled.d.ts"
+    "styled.d.ts",
+    "tables.d.ts"
   ]
 }

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
-import { Logo } from 'shared/components/Logo/Logo';
+import { Logo } from 'shared/ui/Logo/Logo';
 import * as Styles from './styles';
 
 export function FirstLevelPage({ children }: PropsWithChildren) {
