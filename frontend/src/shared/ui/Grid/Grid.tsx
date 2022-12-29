@@ -1,10 +1,5 @@
 import React, { useMemo } from 'react';
-import {
-  useTable,
-  useResizeColumns,
-  useBlockLayout,
-  Column,
-} from 'react-table';
+import { useTable, useResizeColumns, useFlexLayout, Column } from 'react-table';
 import * as Styles from './Styles';
 
 export function Grid() {
@@ -13,6 +8,7 @@ export function Grid() {
       {
         Header: 'Счет',
         accessor: 'account',
+        width: 20,
       },
       {
         Header: 'Наименование',
@@ -21,6 +17,7 @@ export function Grid() {
       {
         Header: 'Тип',
         accessor: 'type',
+        width: 20,
       },
     ],
     []
@@ -42,34 +39,38 @@ export function Grid() {
     []
   );
 
-  const table = useTable({ columns, data }, useResizeColumns, useBlockLayout);
+  const table = useTable({ columns, data }, useResizeColumns, useFlexLayout);
 
   return (
-    <table {...table.getTableProps()}>
-      <thead>
-        {table.headerGroups.map((group) => (
-          <tr {...group.getHeaderGroupProps()}>
-            {group.headers.map((column) => (
-              <th {...column.getHeaderProps()}>
-                {column.render('Header')}
-                <Styles.Separator {...column.getResizerProps()} />
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...table.getTableBodyProps()}>
-        {table.rows.map((row) => {
-          table.prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+    <Styles.Wrapper>
+      <Styles.Table {...table.getTableProps()}>
+        <thead>
+          {table.headerGroups.map((group) => (
+            <tr {...group.getHeaderGroupProps()}>
+              {group.headers.map((column) => (
+                <Styles.Column {...column.getHeaderProps()}>
+                  {column.render('Header')}
+                  <Styles.Resizer {...column.getResizerProps()} />
+                </Styles.Column>
               ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...table.getTableBodyProps()}>
+          {table.rows.map((row) => {
+            table.prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <Styles.Cell {...cell.getCellProps()}>
+                    {cell.render('Cell')}
+                  </Styles.Cell>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Styles.Table>
+    </Styles.Wrapper>
   );
 }
