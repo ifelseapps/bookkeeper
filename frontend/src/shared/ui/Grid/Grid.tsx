@@ -3,6 +3,13 @@ import { useTable, useResizeColumns, useFlexLayout, Column } from 'react-table';
 import * as Styles from './Styles';
 
 export function Grid() {
+  const defaultColumn = useMemo<Partial<Column>>(
+    () => ({
+      minWidth: 20,
+    }),
+    []
+  );
+
   const columns = useMemo<Column[]>(
     () => [
       {
@@ -39,7 +46,11 @@ export function Grid() {
     []
   );
 
-  const table = useTable({ columns, data }, useResizeColumns, useFlexLayout);
+  const table = useTable(
+    { columns, data, defaultColumn },
+    useResizeColumns,
+    useFlexLayout
+  );
 
   return (
     <Styles.Wrapper>
@@ -60,13 +71,13 @@ export function Grid() {
           {table.rows.map((row) => {
             table.prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <Styles.Row {...row.getRowProps()} tabIndex={0}>
                 {row.cells.map((cell) => (
                   <Styles.Cell {...cell.getCellProps()}>
                     {cell.render('Cell')}
                   </Styles.Cell>
                 ))}
-              </tr>
+              </Styles.Row>
             );
           })}
         </tbody>
